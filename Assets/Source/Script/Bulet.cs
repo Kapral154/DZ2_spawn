@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class Bulet : MonoBehaviour
 {
-    [SerializeField] private GameObject triger;   
-
     private float _lifeTime = 2f;
     private float _speed = 10;
 

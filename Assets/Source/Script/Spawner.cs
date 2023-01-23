@@ -8,9 +8,11 @@ public class Spawner : MonoBehaviour
     [SerializeField] private Enemy _enemy;
     [SerializeField] private int _maxCountEnemy;
 
+    WaitForSeconds _spawnDelay = new WaitForSeconds(2f);
+
     private Coroutine _spawnCorutine;
-    private int _currentCountEnemy;
     private List<Enemy> _enemis = new List<Enemy>();
+    private int _currentCountEnemy;
 
     private void Start()
     {
@@ -26,19 +28,15 @@ public class Spawner : MonoBehaviour
 
     private IEnumerator Spawn()
     {
-        while (true)
-        {
-            if (_currentCountEnemy != _maxCountEnemy)
-            {
-                Transform spawnPoint = _pointSpawn[Random.Range(0, _pointSpawn.Length - 1)];
-                Enemy enemy = Instantiate(_enemy, spawnPoint.position, spawnPoint.rotation);
-                _enemis.Add(enemy);
-                enemy.Died += OnDied;
-                _currentCountEnemy++;
-                yield return new WaitForSeconds(2f);
-            }
+        while (_currentCountEnemy != _maxCountEnemy)
+        {           
+            Transform spawnPoint = _pointSpawn[Random.Range(0, _pointSpawn.Length - 1)];
+            Enemy enemy = Instantiate(_enemy, spawnPoint.position, spawnPoint.rotation);
+            _enemis.Add(enemy);
+            enemy.Died += OnDied;
+            _currentCountEnemy++;
 
-            yield return null;
+            yield return _spawnDelay;
         }
     }
 }

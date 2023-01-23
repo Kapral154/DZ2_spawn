@@ -5,28 +5,26 @@ using UnityEngine.Events;
 
 public class Enemy : MonoBehaviour
 {
-    [SerializeField] private Transform _pointPlayer;
+    [SerializeField] private TargetPoint _targetPoint;
     [SerializeField] private GameObject _efectDestroy;
-    
-    private float _speed = 3f;
 
+    private float _speed = 3f;
     public UnityAction<Enemy> Died;
 
     private void Start()
     {
-        _pointPlayer = GameObject.FindObjectOfType<TargetPoint>().transform;
+        _targetPoint = FindObjectOfType<TargetPoint>();
     }
 
     private void Update()
     {
-        if (_pointPlayer != null)
+        if (_targetPoint != null)
         {
-            transform.position = Vector3.MoveTowards(transform.position, _pointPlayer.position, _speed * Time.deltaTime);            
+            transform.position = Vector3.MoveTowards(transform.position, _targetPoint.transform.position, _speed * Time.deltaTime);
         }
         else
         {
-            var target = GameObject.FindObjectOfType<TargetPoint>().transform;
-            _pointPlayer.position = target.position;
+            _targetPoint = GetComponent<TargetPoint>();
         }
     }
 

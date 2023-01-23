@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class Gun : MonoBehaviour
 {
-    [SerializeField] private GameObject _bulet;
+    [SerializeField] private Bulet _bulet;
     [SerializeField] private Transform[] _shotPoints;
     [SerializeField] private GameObject _efect;
 
     private float _reload = 0.2f;
     private float _startReload;
     private int _shotPoint = 1;
+
     void Start()
     {
         _startReload = _reload;
